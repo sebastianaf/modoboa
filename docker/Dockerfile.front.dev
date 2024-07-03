@@ -8,3 +8,5 @@ RUN apk add --no-cache --update gettext \
 WORKDIR $HOME
 
 RUN yarn install
+
+RUN yarn build
