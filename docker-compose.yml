@@ -5,6 +5,8 @@ services:
     image: redis:5-alpine
     ports:
       - 6379:6379
+    networks:
+      - modoboa
 
   rq:
     build:
@@ -19,6 +21,8 @@ services:
       sh -c "cd test_project; python3 manage.py rqworker dkim modoboa"
     volumes:
       - .:/code
+    networks:
+      - modoboa
 
   api:
     container_name: modoboa_api
@@ -41,6 +45,8 @@ services:
              python3 manage.py runserver 0:8000"
     volumes:
       - .:/code
+    networks:
+      - modoboa
 
   front:
     container_name: modoboa_front
@@ -57,3 +63,9 @@ services:
       DOCKER: "yes"
     depends_on:
       - api
+    networks:
+      - modoboa
+
+networks:
+  name: modoboa
+      name: modoboa
